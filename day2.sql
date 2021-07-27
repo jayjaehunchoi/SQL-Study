@@ -16,3 +16,18 @@ SELECT id,title,description, created, name,profile FROM topic LEFT JOIN author O
 SELECT topic.id AS topic_id,title,description, created, name,profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
 
 하나의 테이블만 수정해주더라도 조인된 모든 것들이 다 변경됨.,. 관계형데이터를 진짜 관계형 데이터로 만들어주는 것이 바로 JOIN
+
+
+-- 인터넷과 데이터베이스의 관계
+
+## database server ?
+
+한 대의 컴퓨터는 정보를 다른 컴퓨터에게 요청, 
+또 다른 한 대의 컴퓨터는 정보를 제공함.
+ex ) WEB Browser (input.... > Enter) -> 도메인 name에 해당하는 컴퓨터로 찾아감. -> 전달받은 컴퓨터가 정보를 전달해준 컴퓨터에게 정보를 쏴줌.
+
+요청하는 쪽 : client / Web client / game client ...
+응답하는 쪽 : server / Web server / game server ...
+
+SQL을 설치하면 database client와 database server가 자동으로 설치 됨.
+우리가 사용하는 database client는 ? MySQL
