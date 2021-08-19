@@ -69,4 +69,9 @@ FROM EMP;
  NVL2(COMM,SAL*12-COMM, SAL*12) -- NVL2(COMM이 NULL 이 아니면 , 여기 출력, NULL이면 여기 출력)  
  FROM EMP;
  
- 
+동명 수 찾기
+SELECT NAME, COUNT(NAME) 
+FROM ANIMAL_INS 
+GROUP BY NAME -- 이름으로 묶었는데
+HAVING COUNT(NAME) > 1 -- 1이상이다
+ORDER BY NAME; -- 이름순 출력
