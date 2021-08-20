@@ -3,6 +3,10 @@
 2. 명령구분 대소문자 구별 x
 3. VALUE 는 대소문자 명확하게 구분
 
+SQL > @".sql"; -> 쿼리실행
+SHOW USER;
+CONNECT TEST/1234; -> 계정접속
+
 - SELECT ~ FROM 명령문(READ)
 
 SELECT
