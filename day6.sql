@@ -102,4 +102,27 @@ ORDER BY SUM(SAL) DESC;
   WHERE SAL BETWEEN 1500 AND 3000;
   
   
-  
+ - 찾는 문자열이 지정된 위치부터 지정한 회수만큼 나타난 시작 위치를 반환하는 함수
+ INSTR(string, substring, [position], [occurrence])
+ 
+position : 어디서 부터 찾을지를 결정하는 시작위치 (default 1)
+position > 0 시작부터 끝방향, position < 0 끝부터 시작방향
+position 으로부터 occurence번째 substring의 위치
+
+SELECT 'SG_AHN@ABC.COM', INSTR('SG_AHN@ABC.COM','B',-1,1) FROM DUAL;
+
+왼쪽 채우기(RPAD는 오른쪽채우기)
+SELECT ENAME, LPAD(ENAME,20,'*') RES
+FROM EMP;
+
+TRIM 공백 제거
+SELECT '  ABC  ', TRIM('  ABC  '), RTRIM('  ABC  '), LTRIM('  ABC  ')
+FROM DUAL;
+
+SELECT TRIM('A' FROM 'AATECHAA') 
+FROM DUAL;
+
+TRIM 조건 제거 (한글자씩 TRUE / FALSE 판별 > 왼쪽부터 진행하다 FALSE를 만나면 STOP, RTRIM은 반대)
+SELECT LTRIM('123TECH123123', '123') FROM DUAL;
+SELECT TRIM(LEADING FROM '  TECH  ') FROM DUAL; -- LTRIM임
+SELECT TRIM(TRAILING '1' FROM 'TECH1111') FROM DUAL; --RTRIM임
