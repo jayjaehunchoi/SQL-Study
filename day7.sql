@@ -45,3 +45,49 @@ search1 : expr과 비교하려는 값
 result1 : IF expr = search1 인 경우 반환
 default : expr과 search1 이 일치하지 않은 경우의 기본 리턴값, default 지정하지 않고 expr 과 search1이 일치하지 않으면 NULL값 리턴
 
+SELECT EMP_NAME, DECODE(SUBSTR(EMP_NO,8,1),'1','남','3','남','여') AS 성별
+FROM EMPLOYEE;
+
+SELECT EMP_ID AS 번호, EMP_NAME AS 이름, DECODE(MGR_ID,NULL,'없음',MGR_ID) AS 관리자
+FROM EMPLOYEE;
+-- 유사 (NULL 처리는 NVL 기억)
+SELECT EMP_ID AS 번호, EMP_NAME AS 이름, NVL(MGR_ID,'없음') AS 관리자
+FROM EMPLOYEE;
+
+-- 직군에 따른 급여 인상
+SELECT EMP_NAME AS 이름, JOB_ID AS 직군 , TO_CHAR(SALARY, 'L999,999,999') AS 봉급,
+TO_CHAR(DECODE(JOB_ID,'J7', SALARY*1.1,'J6', SALARY*1.15,'J5', SALARY*1.2, SALARY*1.05),'L999,999,999')
+AS 인상급여
+FROM EMPLOYEE;
+
+--DECODE와 유사한 ANSI 표준 구문
+CASE expr WHEN search1 THEN result1
+SELECT EMP_NAME AS 이름,
+JOB_ID AS 직군 , 
+TO_CHAR(SALARY, 'L999,999,999') AS 봉급,
+CASE JOB_ID
+WHEN 'J7' THEN SALARY*1.1
+WHEN 'J6' THEN SALARY*1.15
+WHEN 'J5' THEN SALARY*1.2
+ELSE SALARY*1.05 END AS 인상급여
+FROM EMPLOYEE;
+
+SELECT EMP_ID AS 번호, EMP_NAME AS 이름,
+CASE
+WHEN SALARY<=3000000 THEN '초급'
+WHEN SALARY<=4000000 THEN '중급'
+ELSE '고급' END AS "봉급 구분"
+FROM EMPLOYEE;
+
+
+--이메일 아이디만 출력
+SELECT EMP_NAME AS 이름,
+EMAIL AS 이메일,
+SUBSTR(EMAIL,0,INSTR(EMAIL,'@')-1) AS ID 
+FROM EMPLOYEE;
+
+-- 평균 NULL 제외 중복 제외
+SELECT AVG(BONUS_PCT) AS 기본평균,
+AVG(DISTINCT BONUS_PCT) AS 중복제거평균,
+AVG(NVL(BONUS_PCT,0)) AS NULL포함평균
+FROM EMPLOYEE;
