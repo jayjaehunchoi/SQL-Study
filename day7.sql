@@ -91,3 +91,98 @@ SELECT AVG(BONUS_PCT) AS 기본평균,
 AVG(DISTINCT BONUS_PCT) AS 중복제거평균,
 AVG(NVL(BONUS_PCT,0)) AS NULL포함평균
 FROM EMPLOYEE;
+
+
+-- JOIN(ORACLE)
+
+SELECT EMP_NAME, DEPT_NAME 
+FROM EMPLOYEE E, DEPARTMENT D
+WHERE E.DEPT_ID = D.DEPT_ID;
+  
+--JOIN 방법 (ANSI)
+SELECT *
+FROM TABLE1{
+      [INNER]JOIN TABLE2 ON (condition [AND condition 2...]) |
+      [INNER]JOIN TABLE2 USING (column [,..]) |
+      NATURAL [INNER] JOIN TABLE2 |
+      LEFT | RIGHT | FULL [OUTER] JOIN TABLE2 ON (condition [AND condition 2...]) |
+      LEFT | RIGHT | FULL [OUTER] JOIN TABLE2 USING (condition [AND condition 2...]) |
+      CROSS JOIN TABLE2}
+WHERE ...
+
+
+-- INNER JOIN (INNER 생략 가능)
+SELECT EMP_NAME,DEPT_ID,DEPT_NAME
+FROM EMPLOYEE
+INNER JOIN DEPARTMENT
+USING (DEPT_ID);
+
+  
+SELECT EMP_NAME,DEPT_ID,DEPT_NAME
+FROM EMPLOYEE
+INNER JOIN DEPARTMENT
+ON (DEPT_ID = DEPTNO); -- DEPT_ID와 DEPTNO가 관리하는 값은 같지만 다른 열명을 가졌을때
+
+COL 지역 FORMAT A20
+SELECT DEPT_NAME AS 부서번호, LOC_DESCRIBE AS 지역
+FROM DEPARTMENT
+JOIN LOCATION
+ON (LOC_ID = LOCATION_ID);
+
+-- ORACLE
+SELECT DEPT_NAME, LOC_DESCRIBE
+FROM DEPARTMENT, LOCATION
+WHERE LOC_ID = LOCATION_ID;
+
+-- OUTER JOIN 과 INNER JOIN의 차이는, OUTER JOIN은 NULL, FALSE값이어도 반환, INNER JOIN은 TRUE값만 반환한다는 것이다.
+SELECT *
+FROM X
+JOIN Z  -- NULL, FALSE 안나옴
+ON(X2=Z1);
+
+-- LEFT JOIN하면 LEFT의 테이블이 주, JOIN뒤 테이블이 종이되어 주 테이블의 모든 정보가 출력된다(JOIN에 해당되지 않더라도)
+
+SELECT *
+FROM X LEFT JOIN Z
+ON(X2 = Z1);
+
+        X1         X2         Z1         Z2
+---------- ---------- ---------- ----------
+         1        111        111          2
+         3        444        444          4
+
+         4        555
+         2        333
+         
+-- ORACLE (+키워드 주면 종)
+SELECT *
+FROM X, Z
+WHERE X.X2 = Z.Z1(+);
+
+-- FULL OUTER JOIN (모든 행이 다 출력)
+SELECT *
+FROM X FULL JOIN Z
+ON(X2=Z1);
+
+-- CROSS JOIN  (모든 조합 결과 리턴)
+SELECT *
+FROM X CROSS JOIN Z;
+
+-- JOIN (Non Equijoin) 범위에 속하는지 확인하는 JOIN
+사원의 이름과 봉급, 등급 출력
+SELECT ENAME, SAL, GRADE
+FROM EMP
+JOIN SALGRADE
+ON(SAL BETWEEN LOSAL AND HISAL);
+
+-- ORACLE
+SELECT ENAME, SAL, GRADE
+FROM EMP, SALGRADE
+WHERE SAL BETWEEN LOSAL AND HISAL;
+
+--SELF JOIN (하나의 테이블을 두개의 별칭을 선언하여 조인)
+SELECT E.ENAME AS 직원,
+M.ENAME AS 관리자
+FROM EMP E
+LEFT JOIN EMP M -- 두개의 별칭 (누구도 매니저로 갖지 않는 인원을 위해 OUTER JOIN)
+ON (E.MGR = M.EMPNO); -- EMPLOYEE의 MGR가 MANAGER의 EMPLOYEE NUMBER
