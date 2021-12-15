@@ -107,11 +107,11 @@ docker network create --driver bridge mybridge
 ```
 
 ```docker
-docker run -i -t --name db001 -p 3306:3306 --net mybridge --net-alias=db001 -v ~/db/db001/data:/var/lib/mysql -v ~/db/db001/log:/var/log/mysql -v ~/db/db001/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
+docker run -i -t --name db001 -p 3306:3306 --net mybridge --net-alias=db001 -h db001 -v ~/db/db001/data:/var/lib/mysql -v ~/db/db001/log:/var/log/mysql -v ~/db/db001/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
 
-docker run -i -t --name db002 -p 3307:3306 --net mybridge --net-alias=db002 -v ~/db/db002/data:/var/lib/mysql -v ~/db/db002/log:/var/log/mysql -v ~/db/db002/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
+docker run -i -t --name db002 -p 3307:3306 --net mybridge --net-alias=db002 -h db002 -v ~/db/db002/data:/var/lib/mysql -v ~/db/db002/log:/var/log/mysql -v ~/db/db002/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
 
-docker run -i -t --name db003 -p 3308:3306 --net mybridge --net-alias=db003 -v ~/db/db003/data:/var/lib/mysql -v ~/db/db003/log:/var/log/mysql -v ~/db/db003/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
+docker run -i -t --name db003 -p 3308:3306 --net mybridge --net-alias=db003 -h db003 -v ~/db/db003/data:/var/lib/mysql -v ~/db/db003/log:/var/log/mysql -v ~/db/db003/config:/etc/percona-server.conf.d -e MYSQL_ROOT_PASSWORD="root" -d percona:5.7.30
 ```
 
 이제 마스터 호스트를 이름으로 지정하자.
