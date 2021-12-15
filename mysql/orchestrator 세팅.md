@@ -90,3 +90,9 @@ docker restart orchestrator
 기존 마스터가 복구되면 다시 수동으로 ```slave```설정을 하여 세팅해주자.
 
 다음에는 ```Master``` 가 변경되더라도 ```application```에서 자동으로 ```Master```를 바라보게 세팅해보자!
+
+
+> docker host name 추가 (ex. -h db001)로 orchestrator에서 이름 안나오던 이슈 해결
+
+![image](https://user-images.githubusercontent.com/87312401/146133723-af4206bd-23db-40dc-93a4-6636e771ee1c.png)
+
